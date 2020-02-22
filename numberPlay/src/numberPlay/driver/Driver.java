@@ -4,13 +4,13 @@ import numberPlay.observer.NumberPeaks;
 import numberPlay.observer.ObserverI;
 import numberPlay.observer.RunningAverage;
 import numberPlay.observer.TopKNumbers;
+import numberPlay.subject.Event;
 import numberPlay.subject.NumberProcessor;
 import numberPlay.subject.SubjectI;
-import numberPlay.util.FilterComplete;
-import numberPlay.util.FilterFloat;
-import numberPlay.util.FilterI;
-import numberPlay.util.FilterInt;
+import numberPlay.util.*;
 
+import javax.print.attribute.standard.NumberUp;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -47,9 +47,9 @@ public class Driver {
 		// to the corresponding output file.
 
 		SubjectI numberProcessor=new NumberProcessor();
-		ObserverI numberPeaks=new NumberPeaks();
-		ObserverI runningAverage=new RunningAverage();
-		ObserverI topKNumbers=new TopKNumbers();
+		ObserverI numberPeaks=new NumberPeaks(args[5]);
+		ObserverI runningAverage=new RunningAverage(args[1],args[2]);
+		ObserverI topKNumbers=new TopKNumbers(args[1],args[3],args[4]);
 
 		FilterI filterInt=new FilterInt();
 		FilterI filterFloat=new FilterFloat();
@@ -66,15 +66,22 @@ public class Driver {
 		numberProcessor.addObserver(numberPeaks,filterComplete);
 		numberProcessor.addObserver(runningAverage,filterComplete);
 		numberProcessor.addObserver(topKNumbers,filterComplete);
+		try {
+			FileProcessor fileProcessor = new FileProcessor(args[0]);
+			String line=fileProcessor.poll();
+			CheckNumber checkNumber = new CheckNumber();
 
+			while(line!=null) {
+				checkNumber.checkValue(line);
+				line=fileProcessor.poll();
+			}
 
-
-		// FIXME Instantiate the observers, providing the necessary filter and the results object.
-
-
-		// FIXME Register each observer with the subject for the necessary set of events.
-
-		// FIXME Delegate control to a separate utility class/method that provides numbers one at a time, from the FileProcessor,
-		// to the subject.
+			//checkNumber.checkValue(null);
+		}
+		catch (Exception e){
+			e.printStackTrace();
+			System.out.println(e);
+		}
+		// FIXME Delegate control to a separate utility class/method that provides numbers one at a time, from the FileProcessor to the subject.
 	}
 }

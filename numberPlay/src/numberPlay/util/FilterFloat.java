@@ -4,7 +4,8 @@ import numberPlay.subject.Event;
 
 public class FilterFloat implements FilterI {
     @Override
-    public boolean check(Event event) {
-        return false;
+    public boolean check(Event eventIn) {
+        Event event=Event.FLOAT;
+        return event.equals(eventIn);
     }
 }
