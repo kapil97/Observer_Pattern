@@ -49,7 +49,7 @@ public class Driver {
 		SubjectI numberProcessor=new NumberProcessor();
 		ObserverI numberPeaks=new NumberPeaks(args[5]);
 		ObserverI runningAverage=new RunningAverage(args[1],args[2]);
-		ObserverI topKNumbers=new TopKNumbers(args[1],args[3],args[4]);
+		ObserverI topKNumbers=new TopKNumbers(args[3],args[4]);
 
 		FilterI filterInt=new FilterInt();
 		FilterI filterFloat=new FilterFloat();

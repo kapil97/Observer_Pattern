@@ -41,6 +41,7 @@ public class RunningAverage implements ObserverI {
                 currWindow.remove(0);
                 currWindow.add(currentValue);
             }
+
             windowSizeInt = Integer.parseInt(windowSize);
             double average = calculateAverage(currWindow);
             runningAverageData.store(average);

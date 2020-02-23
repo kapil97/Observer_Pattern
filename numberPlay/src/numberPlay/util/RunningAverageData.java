@@ -3,7 +3,6 @@ package numberPlay.util;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.security.spec.ECField;
 import java.util.ArrayList;
 
 public class RunningAverageData implements PersisterI, RunningAverageResultsI {
@@ -20,9 +19,9 @@ public class RunningAverageData implements PersisterI, RunningAverageResultsI {
 	@Override
 	public void writeToFile() {
 		try {
-			File resultFile=new File("running.txt");
+			File resultFile=new File(runningAvgFileName);
 			if (resultFile.exists()){
-				FileWriter fileWriter=new FileWriter("running.txt",true);
+				FileWriter fileWriter=new FileWriter(runningAvgFileName,true);
 				for(int i=0;i<dataToBeWritten.size();i++){
 					String data=Double.toString(dataToBeWritten.get(i));
 					fileWriter.write(data);

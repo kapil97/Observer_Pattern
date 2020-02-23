@@ -1,5 +1,5 @@
 # CSX42: Assignment 2
-## Name: 
+## Name: Kamleshwar Ragava
 
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
@@ -56,6 +56,6 @@ I am involved in plagiarism or cheating an official form will be
 submitted to the Academic Honesty Committee of the Watson School to
 determine the action that needs to be taken. "
 
-Date: [ADD_DATE_HERE]
+Date: 02/23/2020
 
 
