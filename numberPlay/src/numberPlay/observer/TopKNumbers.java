@@ -11,7 +11,7 @@ public class TopKNumbers implements ObserverI  {
     }
     @Override
     public void update(Number number) {
-        //System.out.println("Got Number in TopKnumbers"+number);
+        System.out.println("Got Number in TopKnumbers "+number+" "+topKNumbersFile+" "+ windowSize+ " "+ kValue);
 
     }
 }

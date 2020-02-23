@@ -23,9 +23,7 @@ public class RunningAverage implements ObserverI {
     {
         RunningAverageResultsI runningAverageData=new RunningAverageData(runAvgResultFile);
         PersisterI writingToFile=new RunningAverageData(runAvgResultFile);
-        //System.out.println("Inside Observer File Name\t\t"+ runAvgResultFile);
         int check=number.intValue();
-        //System.out.println("VAlue inside the update \t\t\t\t\t"+check);
         if(check==-99)
         {
             writingToFile.writeToFile();
@@ -43,7 +41,6 @@ public class RunningAverage implements ObserverI {
                 currWindow.remove(0);
                 currWindow.add(currentValue);
             }
-            //System.out.println("Got Number in RunningAverage\t" + number);
             windowSizeInt = Integer.parseInt(windowSize);
             double average = calculateAverage(currWindow);
             runningAverageData.store(average);
