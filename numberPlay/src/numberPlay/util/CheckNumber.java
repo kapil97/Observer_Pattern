@@ -8,7 +8,7 @@ public class CheckNumber {
        SubjectI numberProcessor=new NumberProcessor();
        if(line==null){
            numberProcessor.notify(-99,Event.COMPLETE);
-           //ystem.out.println("Control reached here in check in Complete");
+           //System.out.println("Control reached here in check in Complete");
        }
        else {
            try {
