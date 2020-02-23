@@ -7,7 +7,9 @@ public class TopKNumbersData implements PersisterI, TopKNumbersResultsI {
 	public void store(List<Double> topK) {}
 
 	@Override
-	public void writeToFile() {}
+	public void writeToFile() {
+
+	}
 	
 	@Override
 	public void close() {}

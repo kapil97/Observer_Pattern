@@ -7,6 +7,6 @@ public class NumberPeaks implements ObserverI{
     }
     @Override
     public void update(Number number) {
-        System.out.println("Got Number in NumberPeaks"+number);
+        //System.out.println("Got Number in NumberPeaks"+number);
     }
 }

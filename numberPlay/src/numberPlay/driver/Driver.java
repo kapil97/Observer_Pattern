@@ -75,6 +75,7 @@ public class Driver {
 				checkNumber.checkValue(line);
 				line=fileProcessor.poll();
 			}
+			checkNumber.checkValue(line);
 
 			//checkNumber.checkValue(null);
 		}

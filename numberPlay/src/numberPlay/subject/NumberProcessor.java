@@ -37,12 +37,9 @@ public class NumberProcessor implements SubjectI{
 
     @Override
     public void notify(Number number,Event event) {
-        System.out.println("Control Reached in notify "+ number);
-        System.out.println("and the event is "+event);
-        update();
         for (Map.Entry<FilterI, ArrayList<ObserverI>> entry : observers.entrySet()) {
             if (entry.getKey().check(event)) {
-                System.out.println("The value for checking is"+entry.getKey().check(event));
+                //System.out.println("The value for checking is"+entry.getKey().check(event));
                 for (ObserverI o : entry.getValue()) {
                     o.update(number);
                 }
