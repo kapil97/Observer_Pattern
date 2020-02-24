@@ -7,6 +7,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Stores and writes Peak data Information
+ */
 public class NumberPeaksData implements PersisterI, NumberPeaksResultsI {
 	String resultFileName;
 	public NumberPeaksData(String resultFileNameIn){
@@ -18,6 +21,9 @@ public class NumberPeaksData implements PersisterI, NumberPeaksResultsI {
 			dataToBeWritten.add(d);
 	}
 
+	/**
+	 * writes values to the file after process complete event is triggered
+	 */
 	@Override
 	public void writeToFile() {
 		try {
@@ -42,12 +48,19 @@ public class NumberPeaksData implements PersisterI, NumberPeaksResultsI {
 			System.out.println("Error occured");
 			e.printStackTrace();
 		}
-	System.out.println("Processing Complete"+resultFileName);
-	}
+		finally {
+			System.out.println("Process Complete");
+		}
 
+	}
+	@Override
+	public String toString(){
+		String returnValue="File path written is"+resultFileName;
+		return returnValue;
+	}
 	@Override
 	public void close() {
-
+	System.out.println("Data writte to "+ resultFileName);
 	}
 
 }

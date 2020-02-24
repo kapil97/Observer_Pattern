@@ -3,7 +3,14 @@ import numberPlay.subject.Event;
 import numberPlay.subject.NumberProcessor;
 import numberPlay.subject.SubjectI;
 
+/**
+ * Class to check and generate an event based on number format
+ */
 public class CheckNumber {
+    /**
+     * Checks the value of input and generates events accordingly
+     * @param line
+     */
    public void checkValue(String line){
        SubjectI numberProcessor=new NumberProcessor();
        if(line==null){
@@ -13,15 +20,24 @@ public class CheckNumber {
        else {
            try {
                int i = Integer.parseInt(line);
-              // System.out.println("Value is Int" + i);
                numberProcessor.notify(i, Event.INT);
-              // System.out.println("Control reached here in check number");
+
            } catch (Exception e) {
-               Float f = Float.parseFloat(line);
-              // System.out.println("Value is Float" + f);
-               numberProcessor.notify(f, Event.FLOAT);
-              // System.out.println("Control reached here in check number in float");
+               try {
+                   Float f = Float.parseFloat(line);
+                   numberProcessor.notify(f, Event.FLOAT);
+               }
+               catch (Exception e1){
+                System.out.println("String Values or Null Values are Not Allowed");
+                System.exit(0);
+               }
+
            }
        }
    }
+    @Override
+    public String toString(){
+        String returnValue="Check Event class for filtering inputs";
+        return returnValue;
+    }
 }

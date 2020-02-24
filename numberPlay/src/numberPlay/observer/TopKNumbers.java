@@ -7,6 +7,9 @@ import numberPlay.util.TopKNumbersResultsI;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Performs Operations to calculate TopK Numbers
+ */
 public class TopKNumbers implements ObserverI {
     String topKNumbersFile;
     String kValue;
@@ -19,6 +22,10 @@ public class TopKNumbers implements ObserverI {
 
     ArrayList<Double> topKList=new ArrayList<>();
 
+    /**
+     * Overrides ObserverI interface
+     * @param number
+     */
     @Override
     public void update(Number number) {
 
@@ -45,8 +52,11 @@ public class TopKNumbers implements ObserverI {
 
             storeList.store(topKList);
 
-            //System.out.println(topKList);
         }
-    //System.out.println("Values Received"+kValue+topKNumbersFile+" "+ receivedNumber);
+    }
+    @Override
+    public String toString(){
+        String returnValue="top K List"+topKList;
+        return returnValue;
     }
 }

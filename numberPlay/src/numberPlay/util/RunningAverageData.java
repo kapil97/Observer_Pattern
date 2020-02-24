@@ -5,6 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * T0 Calculate Running Average
+ */
 public class RunningAverageData implements PersisterI, RunningAverageResultsI {
 	String runningAvgFileName;
 	public RunningAverageData(String resultFilename){
@@ -16,6 +19,9 @@ public class RunningAverageData implements PersisterI, RunningAverageResultsI {
 		dataToBeWritten.add(d);
 	}
 
+	/**
+	 * Writes values to the file after process complete event is triggered
+	 */
 	@Override
 	public void writeToFile() {
 		try {
@@ -40,10 +46,17 @@ public class RunningAverageData implements PersisterI, RunningAverageResultsI {
 			System.out.println("Error occured");
 			e.printStackTrace();
 		}
+		finally {
+			System.out.println("Process Complete");
+		}
 	}
-
+	@Override
+	public String toString(){
+		String returnValue="File path written is"+runningAvgFileName;
+		return returnValue;
+	}
 	@Override
 	public void close() {
-
+		System.out.println("Data written to "+ runningAvgFileName);
 	}
 }

@@ -8,4 +8,8 @@ public class FilterFloat implements FilterI {
         Event event=Event.FLOAT;
         return event.equals(eventIn);
     }
+    @Override
+    public String toString(){
+        return "Float Event Filter";
+    }
 }

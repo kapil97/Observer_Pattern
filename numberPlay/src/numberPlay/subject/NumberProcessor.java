@@ -10,10 +10,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Subject NumberProcessors
+ */
 public class NumberProcessor implements SubjectI{
 
     static Map<FilterI, ArrayList<ObserverI>> observers= new HashMap<>();
 
+    /**
+     * registering Observers
+     * @param observer
+     * @param filter
+     */
 
     @Override
     public void addObserver(ObserverI observer, FilterI filter){
@@ -22,19 +30,27 @@ public class NumberProcessor implements SubjectI{
         }
         observers.get(filter).add(observer);
 }
+
+    /**
+     * removing observers from the list
+     * @param observerI
+     */
     @Override
-    public void update(){
-        System.out.println("Here in update");
-        for (Map.Entry<FilterI,ArrayList<ObserverI>> entry : observers.entrySet()) {
-            System.out.println("Key = " + entry.getKey() +
-                    ", Value = " + entry.getValue());
+    public void removeObserver(ObserverI observerI) {
+        for (Map.Entry<FilterI, ArrayList<ObserverI>> entry : observers.entrySet()) {
+                for (ObserverI o : entry.getValue()) {
+                    if(o.equals(observerI)){
+                        entry.getValue().remove(o);
+                }
+            }
         }
     }
 
-    @Override
-    public void removeObserver(ObserverI observerI) {
-    }
-
+    /**
+     * notifying observers on an event
+     * @param number
+     * @param event
+     */
     @Override
     public void notify(Number number,Event event) {
         for (Map.Entry<FilterI, ArrayList<ObserverI>> entry : observers.entrySet()) {
@@ -45,6 +61,11 @@ public class NumberProcessor implements SubjectI{
                 }
             }
         }
+    }
+    @Override
+    public String toString(){
+        String returnValue="Subjects are"+observers;
+        return returnValue;
     }
 }
 

@@ -1,32 +1,43 @@
 package numberPlay.observer;
 import java.lang.Math;
-
 import numberPlay.util.PersisterI;
 import numberPlay.util.RunningAverageData;
 import numberPlay.util.RunningAverageResultsI;
-
 import java.util.ArrayList;
 
+/**
+ * Calculates running average
+ */
 public class RunningAverage implements ObserverI {
     String runAvgResultFile;
     String windowSize;
     int windowSizeInt;
     ArrayList<Integer> currWindow=new ArrayList<>();
 
+    /**
+     * Constructor for RunningAverage
+     * @param windowSizeIn
+     * @param runningAvgFile
+     */
     public RunningAverage(String windowSizeIn,String runningAvgFile){
        windowSize=windowSizeIn;
        runAvgResultFile =runningAvgFile;
     }
 
+    /**
+     * Overrides ObserverI interface
+     * @param number
+     */
     @Override
     public void update(Number number)
     {
         RunningAverageResultsI runningAverageData=new RunningAverageData(runAvgResultFile);
         PersisterI writingToFile=new RunningAverageData(runAvgResultFile);
         int check=number.intValue();
-        if(check==-99)
+        if(-99==check)
         {
             writingToFile.writeToFile();
+            writingToFile.close();
         }
         else {
             int currentValue = number.intValue();
@@ -60,5 +71,10 @@ public class RunningAverage implements ObserverI {
         double avg=sum/currWindowIn.size();
         avg=Math.floor(avg * 100) / 100;
         return avg;
+    }
+    @Override
+    public String toString(){
+        String returnValue="Running average observer";
+        return returnValue;
     }
 }

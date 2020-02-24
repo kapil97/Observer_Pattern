@@ -1,24 +1,22 @@
 package numberPlay.util;
-
 import java.io.FileNotFoundException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.FileNotFoundException;
-
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.InvalidPathException;
 
-import java.util.List;
-
+/**
+ * FileProcessor Class
+ */
 public final class FileProcessor {
 	private BufferedReader reader;
 	private String line;
 
 	public FileProcessor(String inputFilePath) 
-		throws InvalidPathException, SecurityException, FileNotFoundException, IOException {
+		throws InvalidPathException, SecurityException, IOException {
 		
 		if (!Files.exists(Paths.get(inputFilePath))) {
 			throw new FileNotFoundException("invalid input file or input file in incorrect location");
@@ -28,6 +26,12 @@ public final class FileProcessor {
 		line = reader.readLine();
 	}
 
+	/**
+	 * to pull a line and send it to the driver for further processing
+	 * @return
+	 * @throws NumberFormatException
+	 * @throws IOException
+	 */
 	public String poll() throws NumberFormatException, IOException {
 		if (null == line) return null;
 
@@ -43,5 +47,10 @@ public final class FileProcessor {
 		} catch (IOException e) {
 			throw new IOException("failed to close file", e);
 		}
+	}
+	@Override
+	public String toString(){
+		String returnValue="File Processor Class which will process file line by line";
+		return returnValue;
 	}
 }

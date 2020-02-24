@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * To calculate Top K Numbers
+ */
 public class TopKNumbersData implements PersisterI, TopKNumbersResultsI {
 	String resultsFileName;
 	static List<List<Double>> dataToBeWrittenList=new ArrayList<>();
@@ -20,9 +23,11 @@ public class TopKNumbersData implements PersisterI, TopKNumbersResultsI {
 		dataToBeWrittenList.add(new ArrayList<>(topK));
 	}
 
+	/**
+	 * Write values to the file after process complete event is triggered
+	 */
 	@Override
 	public void writeToFile() {
-		System.out.println("Final List"+dataToBeWrittenList);
 		try {
 			File resultFile=new File(resultsFileName);
 			if (resultFile.exists()){
@@ -46,8 +51,17 @@ public class TopKNumbersData implements PersisterI, TopKNumbersResultsI {
 			System.out.println("Error occured");
 			e.printStackTrace();
 		}
+		finally {
+			System.out.println("Process Complete");
+		}
 	}
-	
 	@Override
-	public void close() {}
+	public String toString(){
+		String returnValue="File path written is"+resultsFileName;
+		return returnValue;
+	}
+	@Override
+	public void close() {
+		System.out.println("Data written to "+ resultsFileName);
+	}
 }

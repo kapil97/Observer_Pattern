@@ -11,21 +11,25 @@ import numberPlay.util.*;
 
 import javax.print.attribute.standard.NumberUp;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.InvalidPathException;
 import java.util.ArrayList;
 
 /**
  * @author Kamleshwar Ragava
  *
  */
+
 public class Driver {
+	/**
+	 * Main Method
+	 * Command line validation happens here
+	 * takes input as command line arguments
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
-		/*
-		 * As the build.xml specifies the arguments as argX, in case the
-		 * argument value is not given java takes the default value specified in
-		 * build.xml. To avoid that, below condition is used
-		 * FIXME Refactor commandline validation using the validation design taught in class.
-		 */
 		final int REQUIRED_NUMBER_OF_ARGS = 6;
 		if ((args.length != REQUIRED_NUMBER_OF_ARGS) || 
 				(args[0].equals("${inputNumStream}")) || 
@@ -37,52 +41,55 @@ public class Driver {
 			System.err.printf("Error: Incorrect number of arguments. Program accepts %d arguments.", REQUIRED_NUMBER_OF_ARGS);
 			System.exit(0);
 		}
+		ValidatorI validator=new Validator(args[0],args[3],args[1]);
+		if(validator.valid()) {
+			SubjectI numberProcessor = new NumberProcessor();
+			ObserverI numberPeaks = new NumberPeaks(args[5]);
+			ObserverI runningAverage = new RunningAverage(args[1], args[2]);
+			ObserverI topKNumbers = new TopKNumbers(args[3], args[4]);
+
+			FilterI filterInt = new FilterInt();
+			FilterI filterFloat = new FilterFloat();
+			FilterI filterComplete = new FilterComplete();
+
+			numberProcessor.addObserver(numberPeaks, filterInt);
+			numberProcessor.addObserver(runningAverage, filterInt);
+			numberProcessor.addObserver(topKNumbers, filterInt);
+
+			numberProcessor.addObserver(numberPeaks, filterFloat);
+			numberProcessor.addObserver(topKNumbers, filterFloat);
 
 
+			numberProcessor.addObserver(numberPeaks, filterComplete);
+			numberProcessor.addObserver(runningAverage, filterComplete);
+			numberProcessor.addObserver(topKNumbers, filterComplete);
 
+			try {
+				FileProcessor fileProcessor = new FileProcessor(args[0]);
+				String line = fileProcessor.poll();
+				CheckNumber checkNumber = new CheckNumber();
 
-		// FIXME Create an instance of each of the classes implementing PersisterI and the 
-		// corresponding ResultsI interface.
-		// Observers use these objects to dump data to be stored and eventually persisted 
-		// to the corresponding output file.
-
-		SubjectI numberProcessor=new NumberProcessor();
-		ObserverI numberPeaks=new NumberPeaks(args[5]);
-		ObserverI runningAverage=new RunningAverage(args[1],args[2]);
-		ObserverI topKNumbers=new TopKNumbers(args[3],args[4]);
-
-		FilterI filterInt=new FilterInt();
-		FilterI filterFloat=new FilterFloat();
-		FilterI filterComplete=new FilterComplete();
-
-		numberProcessor.addObserver(numberPeaks,filterInt);
-		numberProcessor.addObserver(runningAverage,filterInt);
-		numberProcessor.addObserver(topKNumbers,filterInt);
-
-		numberProcessor.addObserver(numberPeaks,filterFloat);
-		numberProcessor.addObserver(topKNumbers,filterFloat);
-
-
-		numberProcessor.addObserver(numberPeaks,filterComplete);
-		numberProcessor.addObserver(runningAverage,filterComplete);
-		numberProcessor.addObserver(topKNumbers,filterComplete);
-
-		try {
-			FileProcessor fileProcessor = new FileProcessor(args[0]);
-			String line=fileProcessor.poll();
-			CheckNumber checkNumber = new CheckNumber();
-
-			while(line!=null) {
+				while (line != null) {
+					checkNumber.checkValue(line);
+					line = fileProcessor.poll();
+				}
 				checkNumber.checkValue(line);
-				line=fileProcessor.poll();
+				fileProcessor.close();
+			} catch (InvalidPathException e) {
+				System.out.println("Invalid File Path");
+			} catch (IOException | SecurityException e) {
+				System.out.println("File Cannot be read");
+			} finally {
+				System.out.println("All File Operations are Closed");
 			}
-			checkNumber.checkValue(line);
 		}
-
-		catch (Exception e){
-			e.printStackTrace();
-			System.out.println(e);
+		else{
+			System.exit(0);
 		}
-		// FIXME Delegate control to a separate utility class/method that provides numbers one at a time, from the FileProcessor to the subject.
+	}
+	@Override
+	public String toString(){
+		String returnValue="Main Class";
+		return returnValue;
 	}
 }

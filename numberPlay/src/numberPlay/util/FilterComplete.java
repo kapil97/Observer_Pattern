@@ -8,4 +8,9 @@ public class FilterComplete implements FilterI{
         Event event=Event.COMPLETE;
         return event.equals(eventIn);
     }
+    @Override
+    public String toString(){
+        String returnValue="Complete Filter Event";
+        return returnValue;
+    }
 }

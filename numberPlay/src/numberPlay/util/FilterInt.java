@@ -8,4 +8,9 @@ public class FilterInt implements FilterI {
         Event event=Event.INT;
         return event.equals(eventIn);
     }
+    @Override
+    public String toString(){
+        String returnValue="Int Filter Event";
+        return returnValue;
+    }
 }
