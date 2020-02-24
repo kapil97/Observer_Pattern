@@ -66,6 +66,7 @@ public class Driver {
 		numberProcessor.addObserver(numberPeaks,filterComplete);
 		numberProcessor.addObserver(runningAverage,filterComplete);
 		numberProcessor.addObserver(topKNumbers,filterComplete);
+
 		try {
 			FileProcessor fileProcessor = new FileProcessor(args[0]);
 			String line=fileProcessor.poll();
@@ -76,9 +77,8 @@ public class Driver {
 				line=fileProcessor.poll();
 			}
 			checkNumber.checkValue(line);
-
-			//checkNumber.checkValue(null);
 		}
+
 		catch (Exception e){
 			e.printStackTrace();
 			System.out.println(e);

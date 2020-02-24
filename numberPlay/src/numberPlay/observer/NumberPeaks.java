@@ -25,7 +25,7 @@ public class NumberPeaks implements ObserverI{
                 peak=incomingNum;
             else {
                 numberPeaksData.store(peak);
-                System.out.println("\nPeak Found" + peak);
+                //System.out.println("\nPeak Found" + peak);
             }
         }
     }
